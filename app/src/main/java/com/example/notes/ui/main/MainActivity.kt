@@ -20,11 +20,18 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         recycler_rv.layoutManager = GridLayoutManager(this, 2)
-        adapter = NotesRVAdapter()
+        adapter = NotesRVAdapter{
+
+        }
+
         recycler_rv.adapter = adapter
 
         viewModel.viewState().observe(this, Observer{value ->
             value?.let { adapter.notes = it.notes }
         })
+
+        fab.setOnClickListener{
+
+        }
     }
 }

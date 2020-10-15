@@ -9,7 +9,7 @@ import com.example.notes.R
 import com.example.notes.data.entity.Note
 import kotlinx.android.synthetic.main.item.view.*
 
-class NotesRVAdapter : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
+class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null) : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {
@@ -28,11 +28,24 @@ class NotesRVAdapter : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
 
     override fun getItemCount() = notes.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(note: Note) = with(itemView){
             title_tv.text = note.title
             body_tv.text = note.body
-            (itemView as CardView).setBackgroundColor(note.color)
+
+            val color = when(note.color) {
+                Note.Color.WHITE -> R.color.color_white
+                Note.Color.YELLOW -> R.color.color_yellow
+                Note.Color.GREEN -> R.color.color_green
+                Note.Color.BLUE -> R.color.color_blue
+                Note.Color.RED -> R.color.color_red
+                Note.Color.VIOLET -> R.color.color_violet
+            }
+            (itemView as CardView).setBackgroundColor(color)
+
+            itemView.setOnClickListener {
+                onClickListener?.invoke(note)
+            }
         }
     }
 }

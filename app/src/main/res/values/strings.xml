@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">K1 project</string>
+    <string name="app_name">Notes</string>
     <string name="title_tools_text">Fubar susfu + bohica</string>
     <string name="body_tools_text">О сколько нам открытий чудных готовят просвещенья дух и опыт - сын ошибок трудных, и гений - парадоксов друг, и случай - бог изобреталель</string>
-    <string name="toolbar_title">K1 project notes</string>
+    <string name="toolbar_title">Notes</string>
+    <string name="note_text">Note text</string>
+    <string name="title">Title</string>
+    <string name="new_note_title">New note</string>
 </resources>
