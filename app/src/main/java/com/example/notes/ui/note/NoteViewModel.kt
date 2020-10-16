@@ -1,7 +1,7 @@
 package com.example.notes.ui.note
 
 import androidx.lifecycle.ViewModel
-import com.example.notes.data.Repository
+import com.example.notes.data.NotesRepository
 import com.example.notes.data.entity.Note
 
 class NoteViewModel(): ViewModel() {
@@ -14,7 +14,7 @@ class NoteViewModel(): ViewModel() {
 
     override fun onCleared() {
         pendingNote?.let {
-            Repository.saveNote(it)
+            NotesRepository.saveNote(it)
         }
     }
 }

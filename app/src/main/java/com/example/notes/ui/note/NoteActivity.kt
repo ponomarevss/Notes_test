@@ -3,16 +3,15 @@ package com.example.notes.ui.note
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.notes.R
-import com.example.notes.data.Repository.saveNote
 import com.example.notes.data.entity.Note
 import kotlinx.android.synthetic.main.activity_note.*
-import java.security.AccessControlContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,7 +22,9 @@ class NoteActivity : AppCompatActivity() {
 
         private const val DATE_TIME_FORMAT = "dd.MM.yy HH:mm"
 
-        fun start(context: Context, note: Note?) = Intent(context, NoteActivity::class.java).apply {
+        fun start(context: Context, note: Note? = null)
+                = Intent(context, NoteActivity::class.java)
+            .apply {
             putExtra(EXTRA_NOTE, note)
             context.startActivity(this)
         }
@@ -32,7 +33,7 @@ class NoteActivity : AppCompatActivity() {
     private var note: Note? = null
     lateinit var viewModel: NoteViewModel
 
-    val textChangeListener = object : TextWatcher{
+    private val textChangeListener = object : TextWatcher{
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         override fun afterTextChanged(p0: Editable?) = saveNote()
@@ -40,13 +41,14 @@ class NoteActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         note = intent.getParcelableExtra(EXTRA_NOTE)
+        viewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
         supportActionBar?.title = note?.lastChanged?.let {
             SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(it)
@@ -57,8 +59,8 @@ class NoteActivity : AppCompatActivity() {
 
     private fun initView() {
         note?.let {
-            titleEt.setText(it.title)
-            bodyEt.setText(it.body)
+            title_et.setText(it.title)
+            body_et.setText(it.body)
 
             val color = when(it.color) {
                 Note.Color.WHITE -> R.color.color_white
@@ -70,18 +72,28 @@ class NoteActivity : AppCompatActivity() {
             }
             toolbar.setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
         }
-        titleEt.addTextChangedListener(textChangeListener)
-        bodyEt.addTextChangedListener(textChangeListener)
+        title_et.addTextChangedListener(textChangeListener)
+        body_et.addTextChangedListener(textChangeListener)
     }
 
     private fun saveNote() {
-        if (titleEt.text == null || titleEt.length() < 3) return
+        if (title_et.text == null || title_et.text!!.length < 3) return
+        if (body_et.text == null || body_et.text!!.length < 3) return
 
         note = note?.copy(
-            title = titleEt.text.toString(),
-            body = bodyEt.text.toString(),
-            lastChanged
-//            todo: допилить это
-        )
+            title = title_et.text.toString(),
+            body = body_et.text.toString(),
+            lastChanged = Date()
+        ) ?: Note(UUID.randomUUID().toString(), title_et.text.toString(), body_et.text.toString())
+
+        note?.let { viewModel.save(it) }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        android.R.id.home -> {
+            onBackPressed()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 }

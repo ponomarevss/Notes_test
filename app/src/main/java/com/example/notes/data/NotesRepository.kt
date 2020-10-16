@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.notes.data.entity.Note
 import java.util.*
 
-object Repository {
+object NotesRepository {
 
     private val notesLiveData = MutableLiveData<List<Note>>()
 
@@ -57,15 +57,15 @@ object Repository {
 
     }
 
-    fun addOrReplace(note: Note) {
+    private fun addOrReplace(note: Note) {
         for (i in notes.indices) {
             if (notes[i] == note) {
                 notes[i] = note
                 return
             }
-            notes.add(note)
         }
+        notes.add(note)
     }
 
-    fun getNotes() : MutableLiveData<List<Note>> = notesLiveData
+    fun getNotes() = notesLiveData
 }

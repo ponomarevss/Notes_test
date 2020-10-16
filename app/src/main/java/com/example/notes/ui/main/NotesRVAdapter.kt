@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
 import com.example.notes.data.entity.Note
 import kotlinx.android.synthetic.main.item.view.*
 
-class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null) : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
+class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null)
+    : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {
@@ -41,7 +43,7 @@ class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null) : RecyclerVi
                 Note.Color.RED -> R.color.color_red
                 Note.Color.VIOLET -> R.color.color_violet
             }
-            (itemView as CardView).setBackgroundColor(color)
+            (itemView as CardView).setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
 
             itemView.setOnClickListener {
                 onClickListener?.invoke(note)

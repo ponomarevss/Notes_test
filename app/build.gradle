@@ -11,7 +11,7 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "ru.geekbrains.ponomarevss.k1project"
+        applicationId "ru.geekbrains.ponomarevss.notes"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1

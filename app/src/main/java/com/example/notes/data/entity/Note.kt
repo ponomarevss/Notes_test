@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-class Note(
+data class Note(
     val id: String,
     val title: String,
     val body: String,
