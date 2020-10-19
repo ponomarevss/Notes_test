@@ -22,7 +22,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_rv"
+        android:id="@+id/notes_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -37,7 +37,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_anchorGravity="bottom|end"
-        app:layout_anchor="@id/recycler_rv"
+        app:layout_anchor="@id/notes_rv"
         android:src="@drawable/ic_baseline_add_24"
         />
 
