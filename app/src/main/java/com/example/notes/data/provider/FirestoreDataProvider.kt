@@ -22,7 +22,7 @@ class FirestoreDataProvider: DataProvider {
                 result.value = NoteResult.Error(it)
                 return@addSnapshotListener
             }
-            snapshot?.let {
+            snapshot?.let { it ->
                 val notes = it.documents.map { it.toObject(Note::class.java) }
                 result.value = NoteResult.Success(notes)
             }

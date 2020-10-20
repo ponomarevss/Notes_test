@@ -1,6 +1,5 @@
 package com.example.notes.ui.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.notes.data.NotesRepository
 import com.example.notes.data.entity.Note
@@ -24,8 +23,6 @@ class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
     init {
         notesRepository.observeForever(notesObserver)
     }
-
-    fun viewState(): LiveData<MainViewState> = viewStateLiveData
 
     override fun onCleared() {
         super.onCleared()

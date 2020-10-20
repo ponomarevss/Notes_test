@@ -1,7 +1,6 @@
 package com.example.notes.ui.main
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notes.R
@@ -10,7 +9,7 @@ import com.example.notes.ui.base.BaseActivity
 import com.example.notes.ui.note.NoteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
+class MainActivity: BaseActivity<List<Note>?, MainViewState>() {
 
     override val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -23,7 +22,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
 
         notes_rv.layoutManager = GridLayoutManager(this, 2)
         adapter = NotesRVAdapter{
-            NoteActivity.start(this, it)
+            NoteActivity.start(this, it.id)
         }
 
         notes_rv.adapter = adapter
