@@ -13,7 +13,7 @@ class NoteViewModel: BaseViewModel<Note?, NoteViewState>() {
         viewStateLiveData.value = NoteViewState()
     }
 
-    private var noteRepository : LiveData<NoteResult>? = null
+    private var noteLiveData : LiveData<NoteResult>? = null
     private val noteObserver = Observer {result: NoteResult? ->
         result?: return@Observer
         when(result) {
@@ -31,14 +31,18 @@ class NoteViewModel: BaseViewModel<Note?, NoteViewState>() {
     }
 
     fun loadNote(id: String) {
-        noteRepository = NotesRepository.getNoteById(id)
-        noteRepository?.observeForever(noteObserver)
+        noteLiveData = NotesRepository.getNoteById(id)
+        noteLiveData?.observeForever(noteObserver)
+    }
+
+    fun removeObserver() {
+        noteLiveData?.removeObserver(noteObserver)
     }
 
     override fun onCleared() {
         pendingNote?.let {
             NotesRepository.saveNote(it)
         }
-        noteRepository?.removeObserver(noteObserver)
+        removeObserver()
     }
 }

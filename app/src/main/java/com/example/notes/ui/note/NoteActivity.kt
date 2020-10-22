@@ -53,6 +53,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
 
         noteId?.let {
             viewModel.loadNote(it)
+            viewModel.removeObserver()
         } ?: let {
             supportActionBar?.title = getString(R.string.new_note_title)
         }
