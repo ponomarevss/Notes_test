@@ -6,4 +6,9 @@
     <string name="note_text">Note text</string>
     <string name="title">Title</string>
     <string name="new_note_title">New note</string>
+    <string name="logout_menu_title">Logout</string>
+    <string name="logout_title">Logout</string>
+    <string name="logout_message">Are you sure?</string>
+    <string name="logout_ok">Yes</string>
+    <string name="logout_cancel">No</string>
 </resources>
