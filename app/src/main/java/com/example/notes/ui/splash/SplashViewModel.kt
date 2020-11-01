@@ -1,6 +1,5 @@
 package com.example.notes.ui.splash
 
-import android.provider.ContactsContract
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.notes.data.NotesRepository

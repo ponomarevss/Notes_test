@@ -8,6 +8,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
 import com.example.notes.data.entity.Note
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item.*
 import kotlinx.android.synthetic.main.item.view.*
 
 class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null)
@@ -30,8 +32,8 @@ class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null)
 
     override fun getItemCount() = notes.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(note: Note) = with(itemView){
+    inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+        fun bind(note: Note) {
             title_tv.text = note.title
             body_tv.text = note.body
 
@@ -43,7 +45,7 @@ class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null)
                 Note.Color.RED -> R.color.color_red
                 Note.Color.VIOLET -> R.color.color_violet
             }
-            (itemView as CardView).setBackgroundColor(ResourcesCompat.getColor(resources, color, null))
+            (itemView as CardView).setBackgroundColor(ResourcesCompat.getColor(containerView.resources, color, null))
 
             itemView.setOnClickListener {
                 onClickListener?.invoke(note)
