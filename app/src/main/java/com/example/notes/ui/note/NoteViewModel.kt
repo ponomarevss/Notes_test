@@ -35,6 +35,7 @@ class NoteViewModel(val notesRepository: NotesRepository): BaseViewModel<NoteVie
         }
     }
 
+
     private var pendingNote: Note? = null
 
     fun save(note: Note) {
