@@ -15,7 +15,10 @@ import com.example.notes.ui.base.BaseActivity
 import com.example.notes.ui.note.NoteActivity
 import com.example.notes.ui.splash.SplashActivity
 import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
 
@@ -25,9 +28,7 @@ class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
         }
     }
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    override val viewModel: MainViewModel by viewModel()
     override val layoutResource = R.layout.activity_main
     lateinit var adapter: NotesRVAdapter
 

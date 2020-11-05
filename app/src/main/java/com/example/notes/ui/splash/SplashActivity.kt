@@ -2,9 +2,9 @@ package com.example.notes.ui.splash
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import com.example.notes.ui.base.BaseActivity
 import com.example.notes.ui.main.MainActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
 
@@ -14,7 +14,7 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
         }
     }
 
-    override val viewModel by lazy { ViewModelProvider(this).get(SplashViewModel::class.java) }
+    override val viewModel: SplashViewModel by viewModel()
     override val layoutResource = null
 
     override fun onResume() {

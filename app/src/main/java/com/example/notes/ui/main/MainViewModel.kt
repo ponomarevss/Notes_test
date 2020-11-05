@@ -6,7 +6,7 @@ import com.example.notes.data.entity.Note
 import com.example.notes.data.model.NoteResult
 import com.example.notes.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel (val notesRepository: NotesRepository): BaseViewModel<List<Note>?, MainViewState>() {
 
     private val notesObserver = Observer {result: NoteResult? ->
         result?: return@Observer
@@ -18,15 +18,15 @@ class MainViewModel : BaseViewModel<List<Note>?, MainViewState>() {
         }
     }
 
-    private val notesRepository = NotesRepository.getNotes()
+    private val mainLiveData = notesRepository.getNotes()
 
     init {
-        notesRepository.observeForever(notesObserver)
+        mainLiveData.observeForever(notesObserver)
     }
 
     override fun onCleared() {
         super.onCleared()
-        notesRepository.removeObserver(notesObserver)
+        mainLiveData.removeObserver(notesObserver)
     }
 
 

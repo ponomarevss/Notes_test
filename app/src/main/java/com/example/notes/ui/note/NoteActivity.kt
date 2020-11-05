@@ -12,6 +12,7 @@ import com.example.notes.R
 import com.example.notes.data.entity.Note
 import com.example.notes.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_note.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,9 +31,7 @@ class NoteActivity : BaseActivity<Note?, NoteViewState>() {
         }
     }
 
-    override val viewModel: NoteViewModel by lazy {
-        ViewModelProvider(this).get(NoteViewModel::class.java)
-    }
+    override val viewModel: NoteViewModel by viewModel()
     override val layoutResource = R.layout.activity_note
     private var note: Note? = null
 

@@ -3,6 +3,6 @@ package com.example.notes.ui.note
 import com.example.notes.data.entity.Note
 import com.example.notes.ui.base.BaseViewState
 
-class NoteViewState(note : Note? = null, error: Throwable? = null)
-    : BaseViewState<Note?>(note, error){
+class NoteViewState(data: Data? = null, error: Throwable? = null) : BaseViewState<NoteViewState.Data?>(data, error) {
+    class Data(val note: Note? = null, val isDeleted: Boolean = false)
 }

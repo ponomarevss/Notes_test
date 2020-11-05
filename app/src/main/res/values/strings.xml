@@ -11,4 +11,6 @@
     <string name="logout_message">Are you sure?</string>
     <string name="logout_ok">Yes</string>
     <string name="logout_cancel">No</string>
+    <string name="change_color">Color</string>
+    <string name="note_delete">Delete</string>
 </resources>

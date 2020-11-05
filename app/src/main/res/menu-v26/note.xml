@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/palette"
+        android:icon="@drawable/ic_baseline_color_lens_24"
+        android:iconTint="@color/color_white"
+        android:title="@string/change_color"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:iconTint="@color/color_white"
+        android:title="@string/note_delete"
+        app:showAsAction="always" />
+</menu>

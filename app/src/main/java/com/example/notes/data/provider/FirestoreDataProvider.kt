@@ -1,6 +1,5 @@
 package com.example.notes.data.provider
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.notes.data.entity.Note
 import com.example.notes.data.entity.User
@@ -9,16 +8,15 @@ import com.example.notes.data.model.NoteResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class FirestoreDataProvider: DataProvider {
+class FirestoreDataProvider(val store : FirebaseFirestore, val auth: FirebaseAuth): DataProvider {
 
     companion object {
         private const val NOTES_COLLECTION = "notes"
         private const val USERS_COLLECTION = "users"
     }
 
-    private val store by lazy { FirebaseFirestore.getInstance() }
     private val currentUser
-        get() = FirebaseAuth.getInstance().currentUser
+        get() = auth.currentUser
 
     private val notesReference
         get() =  currentUser?.let { store.collection(USERS_COLLECTION).document(it.uid).collection(
@@ -28,45 +26,47 @@ class FirestoreDataProvider: DataProvider {
         value = currentUser?.let { User(it.displayName ?: "", it.email ?: "") }
     }
 
-    override fun getNotes(): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun getNotes() = MutableLiveData<NoteResult>().apply {
         notesReference.addSnapshotListener{snapshot, error ->
             error?.let {
-                result.value = NoteResult.Error(it)
+                value = NoteResult.Error(it)
                 return@addSnapshotListener
             }
             snapshot?.let { it ->
                 val notes = it.documents.map { it.toObject(Note::class.java) }
-                result.value = NoteResult.Success(notes)
+                value = NoteResult.Success(notes)
             }
         }
-
-        return result
     }
 
-    override fun saveNote(note: Note): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun saveNote(note: Note) = MutableLiveData<NoteResult>().apply {
         notesReference.document(note.id).set(note)
             .addOnSuccessListener {
-                result.value = NoteResult.Success(note)
+                value = NoteResult.Success(note)
             }
             .addOnFailureListener {
-                result.value = NoteResult.Error(it)
+                value = NoteResult.Error(it)
             }
-        return result
     }
 
-    override fun getNoteById(id: String): LiveData<NoteResult> {
-        val result = MutableLiveData<NoteResult>()
+    override fun deleteNote(id: String) = MutableLiveData<NoteResult>().apply {
+        notesReference.document(id).delete()
+            .addOnSuccessListener {
+                value = NoteResult.Success(null)
+            }
+            .addOnFailureListener {
+                value = NoteResult.Error(it)
+            }
+    }
+
+    override fun getNoteById(id: String) = MutableLiveData<NoteResult>().apply {
         notesReference.document(id).get()
             .addOnSuccessListener {snapshot ->
                 val note = snapshot.toObject(Note::class.java) as Note
-                result.value = NoteResult.Success(note)
+                value = NoteResult.Success(note)
             }
             .addOnFailureListener {
-                result.value = NoteResult.Error(it)
+                value = NoteResult.Error(it)
             }
-        return result
     }
-
 }

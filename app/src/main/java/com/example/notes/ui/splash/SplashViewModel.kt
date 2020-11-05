@@ -7,7 +7,7 @@ import com.example.notes.data.entity.User
 import com.example.notes.data.errors.NoAuthException
 import com.example.notes.ui.base.BaseViewModel
 
-class SplashViewModel: BaseViewModel<Boolean?, SplashViewState>() {
+class SplashViewModel(val notesRepository: NotesRepository): BaseViewModel<Boolean?, SplashViewState>() {
 
     private var userLiveData : LiveData<User?>? = null
     private val userObserver = object : Observer<User?> {
@@ -21,7 +21,7 @@ class SplashViewModel: BaseViewModel<Boolean?, SplashViewState>() {
     }
 
     fun requestUser() {
-        userLiveData = NotesRepository.getCurrentUser()
+        userLiveData = notesRepository.getCurrentUser()
         userLiveData?.observeForever(userObserver)
     }
 }
