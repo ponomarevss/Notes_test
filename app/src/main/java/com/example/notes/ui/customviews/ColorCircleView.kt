@@ -78,8 +78,10 @@ class ColorCircleView @JvmOverloads constructor(
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val height = (radius * 2 + paddingTop + paddingBottom).toInt()
         val width = (radius * 2 + paddingStart + paddingEnd).toInt()
+        val height = (radius * 2 + paddingTop + paddingBottom).toInt()
+
+        setMeasuredDimension(width, height)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {

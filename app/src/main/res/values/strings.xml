@@ -13,4 +13,8 @@
     <string name="logout_cancel">No</string>
     <string name="change_color">Color</string>
     <string name="note_delete">Delete</string>
+    <string name="note_delete_title">Delete this note</string>
+    <string name="note_delete_message">Are you sure?</string>
+    <string name="note_delete_ok">Yes</string>
+    <string name="note_delete_cancel">No</string>
 </resources>
