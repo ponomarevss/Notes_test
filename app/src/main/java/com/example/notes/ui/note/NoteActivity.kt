@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.ViewModelProvider
 import com.example.notes.R
 import com.example.notes.common.getColorInt
 import com.example.notes.data.entity.Note

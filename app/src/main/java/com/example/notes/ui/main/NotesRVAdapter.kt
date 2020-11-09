@@ -4,14 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
 import com.example.notes.common.getColorInt
 import com.example.notes.data.entity.Note
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item.*
-import kotlinx.android.synthetic.main.item.view.*
 
 class NotesRVAdapter(val onClickListener: ((Note) -> Unit)? = null)
     : RecyclerView.Adapter<NotesRVAdapter.ViewHolder>() {

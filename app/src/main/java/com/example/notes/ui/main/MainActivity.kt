@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.notes.R
 import com.example.notes.data.entity.Note
@@ -15,9 +14,7 @@ import com.example.notes.ui.base.BaseActivity
 import com.example.notes.ui.note.NoteActivity
 import com.example.notes.ui.splash.SplashActivity
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<List<Note>?, MainViewState>() {
