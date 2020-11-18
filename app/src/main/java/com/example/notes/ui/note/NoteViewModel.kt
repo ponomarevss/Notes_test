@@ -1,5 +1,6 @@
 package com.example.notes.ui.note
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.example.notes.data.NotesRepository
@@ -20,7 +21,7 @@ class NoteViewModel(val notesRepository: NotesRepository) :
         override fun onChanged(result: NoteResult?) {
             when (result) {
                 is NoteResult.Success<*> -> {
-                    pendingNote = result.data as Note
+                    pendingNote = result.data as? Note
                     viewStateLiveData.value = NoteViewState(NoteViewState.Data(pendingNote))
                 }
                 is NoteResult.Error -> viewStateLiveData.value = NoteViewState(error = result.error)
@@ -61,7 +62,8 @@ class NoteViewModel(val notesRepository: NotesRepository) :
         }
     }
 
-    override fun onCleared() {
+    @VisibleForTesting
+    public override fun onCleared() {
         pendingNote?.let {
             notesRepository.saveNote(it)
         }

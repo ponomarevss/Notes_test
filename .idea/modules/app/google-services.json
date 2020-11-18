@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "340858326663",
+    "firebase_url": "https://notes-eebac.firebaseio.com",
+    "project_id": "notes-eebac",
+    "storage_bucket": "notes-eebac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340858326663:android:1973708dda7b6620d8b222",
+        "android_client_info": {
+          "package_name": "ru.geekbrains.ponomarevss.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340858326663-vr1hn31pl518pc04hhqcrnfkqmce9sci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.geekbrains.ponomarevss.notes",
+            "certificate_hash": "2b9ff09869ad42143300da92b367c277614434d7"
+          }
+        },
+        {
+          "client_id": "340858326663-s4ln3osqbme4843o08riiha1t54q7hft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.geekbrains.ponomarevss.notes",
+            "certificate_hash": "9a6d0da4cdde9070a22609b59fc77ccf5f2cb399"
+          }
+        },
+        {
+          "client_id": "340858326663-dh88lmb42ngr93ggvj6pg976bp8fpas0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLbjTzzBBXfIo3CAjxQiE2gAbfJeNXUJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340858326663-dh88lmb42ngr93ggvj6pg976bp8fpas0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
