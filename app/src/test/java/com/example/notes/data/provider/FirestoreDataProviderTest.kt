@@ -165,5 +165,44 @@ class FirestoreDataProviderTest {
         assertTrue(result is Throwable)
     }
 
-    //TODO: написать тесты для getNoteById
+    @Test
+    fun `getNoteById calls get`(){
+        val mockDocumentReference = mockk<DocumentReference>()
+        every { mockNotesReference.document(testNotes[0].id) } returns mockDocumentReference
+        provider.getNoteById(testNotes[0].id)
+        verify(exactly = 1) { mockDocumentReference.get() }
+    }
+
+    @Test
+    fun `getNoteById returns note`(){
+        var result: Note? = null
+        val mockDocumentReference = mockk<DocumentReference>()
+        val slot = slot<OnSuccessListener<DocumentSnapshot>>()
+        every { mockNotesReference.document(testNotes[0].id) } returns mockDocumentReference
+        every { mockDocumentReference.get().addOnSuccessListener(capture(slot)).addOnFailureListener(any()) } returns mockk()
+
+        provider.getNoteById(testNotes[0].id).observeForever {
+            result = (it as? NoteResult.Success<Note>)?.data
+        }
+        slot.captured.onSuccess(mockDocument1)
+        assertEquals(result, testNotes[0])
+    }
+
+    @Test
+    fun `getNoteById returns error`() {
+        var result: Throwable? = null
+        val testError = mockk<Exception>()
+        val mockDocumentReference = mockk<DocumentReference>()
+        val slot = slot<OnFailureListener>()
+        every { mockNotesReference.document(testNotes[0].id) } returns mockDocumentReference
+        every { mockDocumentReference.get().addOnSuccessListener(any()).addOnFailureListener(capture(slot)) } returns mockk()
+
+        provider.getNoteById(testNotes[0].id).observeForever {
+            result = (it as NoteResult.Error).error
+        }
+        slot.captured.onFailure(testError)
+        assertNotNull(result)
+        assertTrue(result is Throwable)
+    }
+
 }

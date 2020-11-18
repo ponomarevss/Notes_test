@@ -7,7 +7,7 @@ import com.example.notes.data.entity.Note
 import com.example.notes.data.model.NoteResult
 import com.example.notes.ui.base.BaseViewModel
 
-class MainViewModel (val notesRepository: NotesRepository): BaseViewModel<List<Note>?, MainViewState>() {
+class MainViewModel (notesRepository: NotesRepository): BaseViewModel<List<Note>?, MainViewState>() {
 
     private val notesObserver = Observer {result: NoteResult? ->
         result?: return@Observer
